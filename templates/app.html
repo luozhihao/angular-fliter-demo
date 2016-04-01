@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<link href="../static/angularjs/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-controller="mainCtrl as vm">
+    <div class="panel panel-default" ng-controller="productListCtrl as list">
+        <div class="panel-heading">
+            <div class="panel-title">Hello, {{vm.name}}!</div>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-4">
+                <a class="btn btn-block btn-default btn-lg" ng-click="list.selectCategory()">Home</a>
+                <a class="btn btn-block btn-default btn-lg" ng-repeat="item in vm.data.products | orderBy: 'category' | unique: 'category'" ng-click="list.selectCategory(item)" ng-class="list.getCategoryClass(item)">
+                    {{item}}
+                </a>
+            </div>
+            <div class="col-xs-8">
+                <div class="well" ng-repeat="item in vm.data.products | filter: list.categoryFilterFn">
+                    <h3>
+                        <strong>{{item.name}}</strong>
+                        <span class="pull-right label label-primary">
+                            {{item.price | currency}}
+                        </span>
+                    </h3>
+                    <span class="lead">
+                        {{item.description}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../static/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../static/controllers/main.js"></script>
+    <script type="text/javascript" src="../static/filters/customFilters.js"></script>
+</body>
+</html>
